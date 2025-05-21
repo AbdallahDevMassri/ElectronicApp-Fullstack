@@ -1,0 +1,64 @@
+/* src/Home/App.css */
+
+.app-container {
+  font-family: Arial, sans-serif;
+  background-color: #f6f8fa;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: #24292e;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-buttons .button,
+.nav-buttons button {
+  margin-left: 12px;
+  padding: 6px 12px;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.main-content {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.eye {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(ellipse at center, white 40%, black 60%);
+  border-radius: 50%;
+  position: relative;
+  animation: blink 4s infinite;
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}

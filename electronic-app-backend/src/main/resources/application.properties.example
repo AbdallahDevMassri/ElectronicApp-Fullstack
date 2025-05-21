@@ -1,0 +1,27 @@
+# Application name
+spring.application.name=ElectornicApp-online-backend
+
+# PostgreSQL Database Configuration (replace placeholders)
+spring.datasource.url=jdbc:postgresql://<DB_HOST>:<PORT>/<DB_NAME>
+spring.datasource.username=<DB_USERNAME>
+spring.datasource.password=<DB_PASSWORD>
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.platform=postgresql
+
+# JPA / Hibernate settings
+spring.jpa.hibernate.ddl-auto=update
+
+# HikariCP settings
+spring.datasource.hikari.auto-commit=false
+
+# Server port
+server.port=8080
+
+# Auth0 JWT settings (replace with your own tenant info)
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://<AUTH0_DOMAIN>/
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://<AUTH0_DOMAIN>/.well-known/jwks.json
+spring.security.oauth2.resourceserver.jwt.audience=https://<AUTH0_AUDIENCE>/
+
+# Custom Auth0 properties
+auth0.domain=<AUTH0_DOMAIN>
+auth0.issuer=https://<AUTH0_DOMAIN>/
