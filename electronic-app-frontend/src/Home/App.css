@@ -1,6 +1,8 @@
 /* src/Home/App.css */
 
 .app-container {
+  display: flex;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   background-color: #f6f8fa;
   min-height: 100vh;
@@ -40,6 +42,7 @@
 
 .main-content {
   text-align: center;
+  flex: 1;
   padding: 60px 20px;
 }
 
@@ -61,4 +64,26 @@
   95% {
     transform: scaleY(0.1);
   }
+}
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #111;
+  color: #fff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+.footer-signature {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.footer-signature:hover {
+  text-decoration: underline;
 }
