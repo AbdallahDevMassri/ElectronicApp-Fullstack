@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { request, setAuthHeader } from "../../helpers/axios_helper";
 
 const AutoLogin = () => {
   const [message, setMessage] = useState("");

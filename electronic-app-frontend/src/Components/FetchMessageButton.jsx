@@ -14,7 +14,7 @@ const FetchMessageButton = () => {
         },
       });
 
-      const response = await fetch("http://localhost:8080/api/products", {
+      const response = await fetch("http://localhost:8080/messages", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -41,9 +41,9 @@
 }
 
 .main-content {
-  text-align: center;
-  flex: 1;
-  padding: 60px 20px;
+  .main-content {
+    padding-top: 80px;
+  }
 }
 
 .eye {
@@ -86,4 +86,14 @@
 
 .footer-signature:hover {
   text-decoration: underline;
+}
+
+.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
 }
