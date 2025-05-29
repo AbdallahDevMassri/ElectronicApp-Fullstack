@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import AppContext from "../Context/Context";
-import unplugged from "../assets/unplugged.png"
+import unplugged from "../assets/unplugged.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = ({ selectedCategory }) => {
   const { data, isError, addToCart, refreshData } = useContext(AppContext);
   const [products, setProducts] = useState([]);
   const [isDataFetched, setIsDataFetched] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   useEffect(() => {
     if (!isDataFetched) {
@@ -17,16 +19,27 @@ const Home = ({ selectedCategory }) => {
   }, [refreshData, isDataFetched]);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const fetchImagesAndUpdateProducts = async () => {
+    const fetchImagesAndUpdateProducts = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience,
+          },
+        });
+
         const updatedProducts = await Promise.all(
           data.map(async (product) => {
             try {
-              const response = await axios.get(
+              const response = await fetch(
                 `http://localhost:8080/api/product/${product.id}/image`,
-                { responseType: "blob" }
+                {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                  },
+                }
               );
-              const imageUrl = URL.createObjectURL(response.data);
+              const blob = await response.blob();
+              const imageUrl = URL.createObjectURL(blob);
               return { ...product, imageUrl };
             } catch (error) {
               console.error(
@@ -38,12 +51,17 @@ const Home = ({ selectedCategory }) => {
             }
           })
         );
-        setProducts(updatedProducts);
-      };
 
+        setProducts(updatedProducts);
+      } catch (error) {
+        console.error("Error getting access token or loading products:", error);
+      }
+    };
+
+    if (data && data.length > 0) {
       fetchImagesAndUpdateProducts();
     }
-  }, [data]);
+  }, [data, getAccessTokenSilently, audience]);
 
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
@@ -52,7 +70,11 @@ const Home = ({ selectedCategory }) => {
   if (isError) {
     return (
       <h2 className="text-center" style={{ padding: "18rem" }}>
-      <img src={unplugged} alt="Error" style={{ width: '100px', height: '100px' }}/>
+        <img
+          src={unplugged}
+          alt="Error"
+          style={{ width: "100px", height: "100px" }}
+        />
       </h2>
     );
   }
@@ -97,12 +119,12 @@ const Home = ({ selectedCategory }) => {
                   height: "360px",
                   boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                   borderRadius: "10px",
-                  overflow: "hidden", 
+                  overflow: "hidden",
                   backgroundColor: productAvailable ? "#fff" : "#ccc",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent:'flex-start',
-                  alignItems:'stretch'
+                  justifyContent: "flex-start",
+                  alignItems: "stretch",
                 }}
                 key={id}
               >
@@ -115,11 +137,11 @@ const Home = ({ selectedCategory }) => {
                     alt={name}
                     style={{
                       width: "100%",
-                      height: "150px", 
-                      objectFit: "cover",  
+                      height: "150px",
+                      objectFit: "cover",
                       padding: "5px",
                       margin: "0",
-                      borderRadius: "10px 10px 10px 10px", 
+                      borderRadius: "10px 10px 10px 10px",
                     }}
                   />
                   <div
@@ -147,19 +169,22 @@ const Home = ({ selectedCategory }) => {
                       </i>
                     </div>
                     <hr className="hr-line" style={{ margin: "10px 0" }} />
-                    
+
                     <div className="home-cart-price">
                       <h5
                         className="card-text"
-                        style={{ fontWeight: "600", fontSize: "1.1rem",marginBottom:'5px' }}
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "1.1rem",
+                          marginBottom: "5px",
+                        }}
                       >
                         ₪{price}
                       </h5>
-                      
                     </div>
                     <button
                       className="btn-hover color-9"
-                      style={{margin:'10px 25px 0px '  }}
+                      style={{ margin: "10px 25px 0px " }}
                       onClick={(e) => {
                         e.preventDefault();
                         addToCart(product);
@@ -167,7 +192,7 @@ const Home = ({ selectedCategory }) => {
                       disabled={!productAvailable}
                     >
                       {productAvailable ? "Add to Cart" : "Out of Stock"}
-                    </button> 
+                    </button>
                   </div>
                 </Link>
               </div>

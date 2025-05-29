@@ -1,4 +1,6 @@
 import { useState, useEffect, createContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 const AppContext = createContext({
   data: [],
@@ -43,12 +45,19 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     console.log("CART", cart);
   };
+  const { getAccessTokenSilently } = useAuth0();
 
   const refreshData = async () => {
     try {
-      const response = await axios.get("/products");
+      const token = await getAccessTokenSilently();
+      const response = await axios.get("http://localhost:8080/api/products", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setData(response.data);
     } catch (error) {
+      console.error("Error fetching products:", error);
       setIsError(error.message);
     }
   };

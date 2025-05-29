@@ -55,6 +55,7 @@ public class productController {
     //get image by productId
     @GetMapping("product/{productId}/image")
     public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId){
+        System.out.println("method called");
         Product product = productService.getProductById(productId);
         return new ResponseEntity<>(product.getImageData(),HttpStatus.OK);
     }

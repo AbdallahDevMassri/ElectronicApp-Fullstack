@@ -4,6 +4,8 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import AppContext from "../Context/Context";
 import UpdateProduct from "./UpdateProduct";
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Product = () => {
   const { id } = useParams();
   const { data, addToCart, removeFromCart, cart, refreshData } =
@@ -12,26 +14,41 @@ const Product = () => {
   const [imageUrl, setImageUrl] = useState("");
   const navigate = useNavigate();
 
+  const { getAccessTokenSilently } = useAuth0();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/product/${id}`);
+        const token = await getAccessTokenSilently();
+        const response = await fetch(
+          `http://localhost:8080/api/product/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (!response.ok) throw new Error("Failed to fetch product");
         const result = await response.json();
         setProduct(result);
 
         if (result.imageName) {
-          fetchImage();
+          fetchImage(token);
         }
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
 
-    const fetchImage = async () => {
+    const fetchImage = async (token) => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/product/${id}/image`
+          `http://localhost:8080/api/product/${id}/image`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (!response.ok) throw new Error("Failed to fetch image");
         const blob = await response.blob();
@@ -42,12 +59,16 @@ const Product = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, getAccessTokenSilently]);
 
   const deleteProduct = async () => {
     try {
+      const token = await getAccessTokenSilently();
       const response = await fetch(`http://localhost:8080/api/product/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (!response.ok) throw new Error("Failed to delete product");
       removeFromCart(id);
