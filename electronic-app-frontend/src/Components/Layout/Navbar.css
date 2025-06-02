@@ -1,13 +1,16 @@
+/* ------------------ BASE STYLES ------------------ */
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
 .navbar {
-  background-color: #1a1a1a !important;
   padding: 1rem 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-brand {
   font-weight: bold;
-  font-size: 1.5rem;
-  color: #fcd34d !important; /* Yellow */
+  font-size: 1.2rem;
   transition: color 0.3s;
 }
 
@@ -16,7 +19,6 @@
 }
 
 .navbar-nav .nav-link {
-  color: white !important;
   margin-right: 1rem;
   font-weight: 500;
   transition: color 0.3s;
@@ -26,10 +28,25 @@
   color: #fcd34d !important;
 }
 
+.nav-buttons button,
+.nav-buttons .button {
+  margin-left: 12px;
+  padding: 6px 12px;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #005bb5;
+}
+
 .theme-btn {
   background: transparent;
   border: none;
-  color: white;
   font-size: 1.5rem;
   margin-right: 1rem;
   cursor: pointer;
@@ -41,8 +58,8 @@
 }
 
 .cart i {
-  color: white;
   transition: color 0.3s;
+  cursor: pointer;
 }
 
 .cart i:hover {
@@ -62,6 +79,7 @@
   box-shadow: 0 0 5px #fcd34d;
 }
 
+/* ------------------ SEARCH RESULT DROPDOWN ------------------ */
 .list-group {
   position: absolute;
   top: 100%;
@@ -70,17 +88,15 @@
   max-height: 200px;
   overflow-y: auto;
   z-index: 9999;
-  background: #1a1a1a;
-  color: white;
-  border: 1px solid #fcd34d;
   border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
 }
 
 .list-group-item {
   background-color: transparent;
   border: none;
-  color: white;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .list-group-item:hover {
@@ -88,8 +104,8 @@
 }
 
 .search-result-link {
-  color: white;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 .search-result-link:hover {
@@ -102,12 +118,61 @@
   padding: 0.5rem;
 }
 
-.btn-outline-primary {
-  border-color: #fcd34d;
-  color: #fcd34d;
+/* ------------------ TOGGLER ICON COLOR FIX ------------------ */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23fcd34d' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.btn-outline-primary:hover {
-  background-color: #fcd34d;
-  color: black;
+.navbar-toggler:hover .navbar-toggler-icon {
+  filter: brightness(1.2);
+}
+
+/* ------------------ THEME STYLES ------------------ */
+
+/* LIGHT THEME */
+body.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.light-theme .navbar {
+  background-color: #f5f5f5 !important;
+}
+
+body.light-theme .navbar-nav .nav-link,
+body.light-theme .navbar-brand,
+body.light-theme .theme-btn,
+body.light-theme .cart i,
+body.light-theme .search-result-link {
+  color: #000 !important;
+}
+
+body.light-theme .list-group {
+  background: #fff;
+  color: #000;
+  border: 1px solid #fcd34d;
+}
+
+/* DARK THEME */
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-theme .navbar {
+  background-color: #1a1a1a !important;
+}
+
+body.dark-theme .navbar-nav .nav-link,
+body.dark-theme .navbar-brand,
+body.dark-theme .theme-btn,
+body.dark-theme .cart i,
+body.dark-theme .search-result-link {
+  color: white !important;
+}
+
+body.dark-theme .list-group {
+  background: #1a1a1a;
+  color: white;
+  border: 1px solid #fcd34d;
 }

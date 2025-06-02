@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import "./UpdateProduct.css";
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -103,156 +104,154 @@ const UpdateProduct = () => {
 
   return (
     <div className="update-product-container">
-      <div className="center-container" style={{ marginTop: "7rem" }}>
-        <h1>Update Product</h1>
-        <form className="row g-3 pt-1" onSubmit={handleSubmit}>
-          {/* Name */}
-          <div className="col-md-6">
-            <label className="form-label">
-              <h6>Name</h6>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              value={updateProduct.name}
-              onChange={handleChange}
-              name="name"
-              required
+      <h1>Update Product</h1>
+      <form className="row g-3 pt-1" onSubmit={handleSubmit}>
+        {/* Name */}
+        <div className="col-md-6">
+          <label className="form-label">
+            <h6>Name</h6>
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            value={updateProduct.name}
+            onChange={handleChange}
+            name="name"
+            required
+          />
+        </div>
+
+        {/* Brand */}
+        <div className="col-md-6">
+          <label className="form-label">
+            <h6>Brand</h6>
+          </label>
+          <input
+            type="text"
+            name="brand"
+            className="form-control"
+            value={updateProduct.brand}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Description */}
+        <div className="col-12">
+          <label className="form-label">
+            <h6>Description</h6>
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="description"
+            value={updateProduct.description}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Price */}
+        <div className="col-5">
+          <label className="form-label">
+            <h6>Price</h6>
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            name="price"
+            value={updateProduct.price}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        {/* Category */}
+        <div className="col-md-6">
+          <label className="form-label">
+            <h6>Category</h6>
+          </label>
+          <select
+            className="form-select"
+            value={updateProduct.category}
+            onChange={handleChange}
+            name="category"
+            required
+          >
+            <option value="">Select category</option>
+            <option value="laptop">Laptop</option>
+            <option value="headphone">Headphone</option>
+            <option value="mobile">Mobile</option>
+            <option value="electronics">Electronics</option>
+            <option value="toys">Toys</option>
+            <option value="fashion">Fashion</option>
+          </select>
+        </div>
+
+        {/* Stock Quantity */}
+        <div className="col-md-4">
+          <label className="form-label">
+            <h6>Stock Quantity</h6>
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            name="stockQuantity"
+            value={updateProduct.stockQuantity}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Image Upload */}
+        <div className="col-md-8">
+          <label className="form-label">
+            <h6>Image</h6>
+          </label>
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Current"
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover",
+                marginBottom: "0.5rem",
+              }}
             />
-          </div>
+          )}
+          <input
+            className="form-control"
+            type="file"
+            onChange={handleImageChange}
+            name="imageFile"
+            accept="image/*"
+          />
+        </div>
 
-          {/* Brand */}
-          <div className="col-md-6">
-            <label className="form-label">
-              <h6>Brand</h6>
-            </label>
+        {/* Availability */}
+        <div className="col-12">
+          <div className="form-check">
             <input
-              type="text"
-              name="brand"
-              className="form-control"
-              value={updateProduct.brand}
-              onChange={handleChange}
+              className="form-check-input"
+              type="checkbox"
+              name="productAvailable"
+              checked={updateProduct.productAvailable}
+              onChange={(e) =>
+                setUpdateProduct((prev) => ({
+                  ...prev,
+                  productAvailable: e.target.checked,
+                }))
+              }
             />
+            <label className="form-check-label">Product Available</label>
           </div>
+        </div>
 
-          {/* Description */}
-          <div className="col-12">
-            <label className="form-label">
-              <h6>Description</h6>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              value={updateProduct.description}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Price */}
-          <div className="col-5">
-            <label className="form-label">
-              <h6>Price</h6>
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              name="price"
-              value={updateProduct.price}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {/* Category */}
-          <div className="col-md-6">
-            <label className="form-label">
-              <h6>Category</h6>
-            </label>
-            <select
-              className="form-select"
-              value={updateProduct.category}
-              onChange={handleChange}
-              name="category"
-              required
-            >
-              <option value="">Select category</option>
-              <option value="laptop">Laptop</option>
-              <option value="headphone">Headphone</option>
-              <option value="mobile">Mobile</option>
-              <option value="electronics">Electronics</option>
-              <option value="toys">Toys</option>
-              <option value="fashion">Fashion</option>
-            </select>
-          </div>
-
-          {/* Stock Quantity */}
-          <div className="col-md-4">
-            <label className="form-label">
-              <h6>Stock Quantity</h6>
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              name="stockQuantity"
-              value={updateProduct.stockQuantity}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Image Upload */}
-          <div className="col-md-8">
-            <label className="form-label">
-              <h6>Image</h6>
-            </label>
-            {image && (
-              <img
-                src={URL.createObjectURL(image)}
-                alt="Current"
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  marginBottom: "0.5rem",
-                }}
-              />
-            )}
-            <input
-              className="form-control"
-              type="file"
-              onChange={handleImageChange}
-              name="imageFile"
-              accept="image/*"
-            />
-          </div>
-
-          {/* Availability */}
-          <div className="col-12">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="productAvailable"
-                checked={updateProduct.productAvailable}
-                onChange={(e) =>
-                  setUpdateProduct((prev) => ({
-                    ...prev,
-                    productAvailable: e.target.checked,
-                  }))
-                }
-              />
-              <label className="form-check-label">Product Available</label>
-            </div>
-          </div>
-
-          {/* Submit */}
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
+        {/* Submit */}
+        <div className="col-12">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,25 +1,21 @@
-/* src/Home/App.css */
-
 .app-container {
   display: flex;
   flex-direction: column;
   font-family: Arial, sans-serif;
-  background-color: #f6f8fa;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar {
-  background-color: #24292e;
-  color: white;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* LIGHT THEME */
+body.light-theme .app-container {
+  background-color: #f6f8fa;
+  color: #000;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
+/* DARK THEME */
+body.dark-theme .app-container {
+  background-color: #121212;
+  color: #fff;
 }
 
 .title {
@@ -28,72 +24,6 @@
   font-weight: bold;
 }
 
-.nav-buttons .button,
-.nav-buttons button {
-  margin-left: 12px;
-  padding: 6px 12px;
-  background-color: #0366d6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .main-content {
-  .main-content {
-    padding-top: 80px;
-  }
-}
-
-.eye {
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(ellipse at center, white 40%, black 60%);
-  border-radius: 50%;
-  position: relative;
-  animation: blink 4s infinite;
-}
-
-@keyframes blink {
-  0%,
-  90%,
-  100% {
-    transform: scaleY(1);
-  }
-  95% {
-    transform: scaleY(0.1);
-  }
-}
-.footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #111;
-  color: #fff;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  margin-top: auto;
-  font-size: 0.9rem;
-}
-.footer-signature {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.footer-signature:hover {
-  text-decoration: underline;
-}
-
-.light-theme {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.dark-theme {
-  background-color: #121212;
-  color: #ffffff;
+  padding-top: 80px;
 }

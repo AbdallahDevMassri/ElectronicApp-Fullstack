@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class PerformanceMonitorAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(PerformanceMonitorAspect.class);
 
-    @Around("execution(* com.abdallah.StoreApp.controller.productController.*(..)) ")
+    @Around("execution(* com.abdallah.ElectornicApp_online_backend.controllers.productController.*(..)) ")
     public Object monitorTime( ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Long start = System.currentTimeMillis();
         Object obj = proceedingJoinPoint.proceed();
@@ -21,11 +21,5 @@ public class PerformanceMonitorAspect {
 
         return obj;
     }
-//        @Before("execution(* com.abdallah.StoreApp.controller.productController.*(..)) ")
-//    public void productLogBeforeMethodCall(JoinPoint jp) {
-//
-//        LOGGER.info("Method " + jp.getSignature().getName() + "called before executing \n" +
-//                "at time: " );
-//
-//    }
+
 }

@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import AppContext from "../Context/Context";
 import UpdateProduct from "./UpdateProduct";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import "../Pages/Product.css";
 const Product = () => {
   const { id } = useParams();
   const { data, addToCart, removeFromCart, cart, refreshData } =

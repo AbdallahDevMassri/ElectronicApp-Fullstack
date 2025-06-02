@@ -2,18 +2,30 @@ import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../Context/Context";
 import CheckoutPopup from "../Components/Ui/CheckoutPopup";
 import { Button } from "react-bootstrap";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import "./Cart.css";
 const Cart = () => {
   const { cart, removeFromCart, clearCart } = useContext(AppContext);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartImage, setCartImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   useEffect(() => {
     const fetchImagesAndUpdateCart = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/products");
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience,
+          },
+        });
+        const res = await fetch("http://localhost:8080/api/products", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         if (!res.ok) throw new Error("Failed to fetch products");
         const backendProducts = await res.json();
         const backendProductIds = backendProducts.map((product) => product.id);
@@ -26,7 +38,12 @@ const Cart = () => {
           updatedCartItems.map(async (item) => {
             try {
               const imageRes = await fetch(
-                `http://localhost:8080/api/product/${item.id}/image`
+                `http://localhost:8080/api/product/${item.id}/image`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                  },
+                }
               );
               if (!imageRes.ok) throw new Error("Failed to fetch image");
               const imageBlob = await imageRes.blob();
@@ -116,6 +133,9 @@ const Cart = () => {
           `http://localhost:8080/api/product/${item.id}`,
           {
             method: "PUT",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
             body: cartProduct,
           }
         );

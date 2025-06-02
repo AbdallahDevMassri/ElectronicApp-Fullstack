@@ -1,0 +1,60 @@
+.update-product-container {
+  background-color: #fefefe;
+  font-family: "Georgia", serif;
+  color: #333;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.update-product-container h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.5rem;
+  text-align: center;
+}
+
+.update-product-container label {
+  font-weight: 600;
+  color: #444;
+}
+
+.update-product-container .form-control,
+.update-product-container .form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.update-product-container input[type="file"] {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+}
+
+.update-product-container .form-check-label {
+  font-style: italic;
+}
+
+.update-product-container button {
+  margin-top: 1rem;
+  background-color: #004080;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.update-product-container button:hover {
+  background-color: #00264d;
+  color: white;
+}
+
+.update-product-container img {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}

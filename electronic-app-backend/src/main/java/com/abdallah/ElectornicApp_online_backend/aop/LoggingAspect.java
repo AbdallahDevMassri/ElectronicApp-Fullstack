@@ -5,7 +5,6 @@ import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalTime;
 
 @Component
@@ -26,15 +25,15 @@ public class LoggingAspect {
     }
 
     //return type , class name. method name(args)
-    @Before("execution(* com.abdallah.StoreApp.controller.HomeController.hello(..)) ")
-    public void logMethodCall() {
+    @Before("execution(* com.abdallah.ElectornicApp_online_backend.controllers.productController.products(..)) ")
+    public void logMethodCall(JoinPoint jp) {
         String currentTime = getCurrentHourAndMinute();
-        LOGGER.info("The method hello  in HomeController called :" + ++countHelloCalled + " Times \n" +
+        LOGGER.info("The method "+jp.getSignature().getName()+" in HomeController called :" + ++countHelloCalled + " Times \n" +
                 "at : " + currentTime);
 
     }
 
-    @Before("execution(* com.abdallah.StoreApp.controller.productController.*(..)) ")
+    @Before("execution(* com.abdallah.ElectornicApp_online_backend.controllers.productController.*(..)) ")
     public void productLogBeforeMethodCall(JoinPoint jp) {
         String currentTime = getCurrentHourAndMinute();
         LOGGER.info("Method " + jp.getSignature().getName() + "called before executing \n" +
@@ -42,7 +41,7 @@ public class LoggingAspect {
 
     }
 
-    @After("execution(* com.abdallah.StoreApp.controller.productController.*(..)) ")
+    @After("execution(* com.abdallah.ElectornicApp_online_backend.controllers.productController.*(..)) ")
     public void productLogAfterMethodCall(JoinPoint jp) {
         String currentTime = getCurrentHourAndMinute();
         LOGGER.info("Method " + jp.getSignature().getName() + "called after executing \n" +
@@ -50,7 +49,7 @@ public class LoggingAspect {
 
     }
 
-    @AfterThrowing("execution(* com.abdallah.StoreApp.controller.productController.*(..)) ")
+    @AfterThrowing("execution(* com.abdallah.ElectornicApp_online_backend.controllers.productController.*(..)) ")
     public void productLogAfterThrowingMethodCall(JoinPoint jp) {
         String currentTime = getCurrentHourAndMinute();
         LOGGER.info("Method " + jp.getSignature().getName() + "called and has some issues \n" +

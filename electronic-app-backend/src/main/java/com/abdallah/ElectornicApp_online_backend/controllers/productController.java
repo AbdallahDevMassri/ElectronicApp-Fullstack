@@ -41,7 +41,7 @@ public class productController {
     // Add product
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
-        System.out.println("method add product Called");
+
         Product saveProduct = null;
         try {
             saveProduct = productService.addOrUpdateProduct(product, imageFile);
@@ -55,14 +55,14 @@ public class productController {
     //get image by productId
     @GetMapping("product/{productId}/image")
     public ResponseEntity<byte[]> getImageByProductId(@PathVariable int productId){
-        System.out.println("method called");
+
         Product product = productService.getProductById(productId);
         return new ResponseEntity<>(product.getImageData(),HttpStatus.OK);
     }
-    // Update product
+    //Add or Update product
     @PutMapping("/product/{id}")
     public ResponseEntity<String> updateProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile ){
-        System.out.println("method updateOrAdd called");
+
         Product updatingProduct = null;
         try {
             updatingProduct = productService.addOrUpdateProduct(product, imageFile);
@@ -74,7 +74,7 @@ public class productController {
     //delete product by id
     @DeleteMapping("product/{id}")
     public ResponseEntity<String> deleteProduct (@PathVariable int id){
-        System.out.println("method delete called");
+
         Product product = productService.getProductById(id);
          if(product !=null){
              productService.deleteProduct(product);
@@ -99,7 +99,7 @@ public class productController {
 
     }
     else
-        System.out.println("we are in the else method");
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/load")

@@ -37,33 +37,40 @@ function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <Navbar1 onSelectCategory={handleCategorySelect} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              isAuthenticated ? (
-                <Home />
-              ) : (
-                <p>You need to log in to fetch messages.</p>
-              )
-            }
-          />
+        <div className="app-container">
+          <Navbar1 onSelectCategory={handleCategorySelect} />
 
-          <Route
-            path="/home"
-            element={
-              <Home addToCart={addToCart} selectedCategory={selectedCategory} />
-            }
-          />
-          <Route path="/add_product" element={<AddProduct />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/product/update/:id" element={<UpdateProduct />} />
-        </Routes>
+          <main className="main-content">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isAuthenticated ? (
+                    <Home />
+                  ) : (
+                    <p>You need to log in to fetch messages.</p>
+                  )
+                }
+              />
+              <Route
+                path="/home"
+                element={
+                  <Home
+                    addToCart={addToCart}
+                    selectedCategory={selectedCategory}
+                  />
+                }
+              />
+              <Route path="/add_product" element={<AddProduct />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/product/update/:id" element={<UpdateProduct />} />
+            </Routes>
+          </main>
 
-        {/* <Footer /> */}
+          <Footer />
+        </div>
       </BrowserRouter>
     </AppProvider>
   );

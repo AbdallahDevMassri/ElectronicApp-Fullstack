@@ -1,12 +1,10 @@
 package com.abdallah.ElectornicApp_online_backend.services;
 
-
 import com.abdallah.ElectornicApp_online_backend.entites.Product;
 import com.abdallah.ElectornicApp_online_backend.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +15,6 @@ public class ProductService {
     public List<Product>getAllProducts() {
         return productRepo.findAll();
     }
-
 
 
 
